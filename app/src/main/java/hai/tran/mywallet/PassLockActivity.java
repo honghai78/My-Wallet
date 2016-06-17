@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import hai.tran.mywallet.adapter.CustomAdapter;
 import hai.tran.mywallet.data.DataSharedPreferences;
+import hai.tran.mywallet.object.Categories;
 
 /**
  * Created by hai.tran on 6/16/2016.
@@ -98,6 +99,9 @@ public class PassLockActivity extends AppCompatActivity {
 
                 if (mPass.equals(mPassData)) {
                     Intent i = new Intent(getBaseContext(), MainActivity.class);
+                    Categories categories1[] ={new Categories(1, "a", "A"), new Categories(1, "a", "A")};
+                    Categories categories = new Categories(1, "a", "A");
+                    i.putExtra("PA", categories1);
                     startActivity(i);
                     finish();
                 } else {

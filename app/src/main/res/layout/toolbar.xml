@@ -13,4 +13,11 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:layout_gravity="center"/>
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_gravity="end|center_vertical"
+        android:id="@+id/btAdd"/>
 </FrameLayout>

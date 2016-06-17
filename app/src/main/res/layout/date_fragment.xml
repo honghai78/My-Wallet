@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:weightSum="5"
-    android:keepScreenOn="true">
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    android:weightSum="6">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="3.5">
+
         <com.samsistemas.calendarview.widget.CalendarView
+            android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/calendar"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
             android:background="@color/colorPrimary"
             app:calendarBackgroundColor="@color/colorPrimary"
             app:calendarTitleTextColor="@android:color/white"
@@ -31,17 +33,31 @@
             app:disabledDayTextColor="@android:color/darker_gray"
             app:selectedDayBackgroundColor="@color/colorBtClick"
             app:titleLayoutBackgroundColor="@color/colorPrimary"
-            app:weekLayoutBackgroundColor="@color/colorPrimary"
-           >
-        </com.samsistemas.calendarview.widget.CalendarView>
+            app:weekLayoutBackgroundColor="@color/colorPrimary"></com.samsistemas.calendarview.widget.CalendarView>
+
         <ImageView
+            android:id="@+id/btnew"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/btnew"
-            android:src="@drawable/bg_number"
-            android:layout_marginRight="5dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_summary"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:paddingBottom="5dp">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView_main"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/white"/>
     </RelativeLayout>
 </LinearLayout>
