@@ -22,13 +22,13 @@ public class ListViewHolder {
     protected ListViewHolder(View row)
     {
         mIcon = (ImageView) row.findViewById(R.id.item_icon);
-        mBtDelete = (ImageView) row.findViewById(R.id.item_delete);
-        mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
         mNote = (TextView) row.findViewById(R.id.item_notice);
         mDate = (TextView) row.findViewById(R.id.item_date);
         mValue = (TextView) row.findViewById(R.id.item_money);
         mSubValue = (TextView) row.findViewById(R.id.item_sub);
         mUnit = (TextView) row.findViewById(R.id.item_unit);
+        mBtDelete=(ImageView) row.findViewById(R.id.item_delete);
+        mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
     }
 
     protected  void showBtAction(boolean b)
