@@ -16,7 +16,7 @@ public abstract class BaseAdapterEx<T> extends BaseAdapter {
 
     public Context context;
     private LayoutInflater inflater;
-    private List<T> list;
+    public List<T> list;
 
     public BaseAdapterEx(Context context) {
         this(context, new ArrayList<T>());

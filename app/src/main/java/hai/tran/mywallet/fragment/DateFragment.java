@@ -105,6 +105,7 @@ public class DateFragment extends CustomFragment {
                 else
                 {
                     setListViewShow(false);
+                    Toast.makeText(getContext(), "1", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -170,14 +171,6 @@ public class DateFragment extends CustomFragment {
 
             }
         });
-        if (list.size()>0) {
-            setListViewShow(true);
-            mListViewAdapter = new ListViewAdapter(getActivity(), getmCategories(), list);
-            listView.setAdapter(mListViewAdapter);
-
-        } else {
-            setListViewShow(false);
-        }
 
         imageView = (ImageView) view.findViewById(R.id.btnew);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +211,23 @@ public class DateFragment extends CustomFragment {
     @Override
     public void onResume() {
         super.onResume();
+        dataSQLLite = new DataSQLLite(getActivity());
+        String intent = DataSharedPreferences.getDataSharedPreferences(getContext()).getPreferencesString("DATE_SE");
+        List<Item> list;
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH) + 1;
+        if (intent.length() > 1)
+            list = dataSQLLite.getDataItem(intent);
+        else
+            list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
+        if(list.size()>0)
+        {
+            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(),list);
+            listView.setAdapter(mListViewAdapter);
+
+        }
+
+        else setListViewShow(false);
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
