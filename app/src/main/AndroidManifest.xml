@@ -20,8 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.AddNewActivity" />
-        <activity android:name=".activity.DetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package hai.tran.mywallet.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import hai.tran.mywallet.activity.AddNewActivity;
 import hai.tran.mywallet.activity.CustomDialog;
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.adapter.ListViewAdapter;
@@ -60,8 +61,10 @@ public class DateFragment extends CustomFragment {
         mBtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddNewActivity.class);
-                getContext().startActivity(intent);
+                Fragment frag = new AddNewFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.transition.slide_in, R.transition.slide_out);
+                fragmentTransaction.replace(R.id.fragment_main, frag).commit();
             }
         });
         mSqLite = new DataSQLLite(getActivity());
@@ -203,8 +206,8 @@ public class DateFragment extends CustomFragment {
             list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
         if(list.size()>0)
         {
-            setListViewShow(true);
-            mListViewAdapter.appendList(list);
+            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(),list);
+            listView.setAdapter(mListViewAdapter);
 
         }
 
@@ -215,21 +218,18 @@ public class DateFragment extends CustomFragment {
     @Override
     public void onResume() {
         super.onResume();
-        dataSQLLite = new DataSQLLite(getActivity());
-        String intent = DataSharedPreferences.getDataSharedPreferences(getContext()).getPreferencesString("DATE_SE");
-        List<Item> list;
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1;
-        if (intent.length() > 1)
-            list = dataSQLLite.getDataItem(intent);
-        else
-            list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
-        if(list.size()>0) {
-            setListViewShow(true);
-            mListViewAdapter.appendList(list);
-        }
-        else setListViewShow(false);
-
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    getActivity().onBackPressed();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void setListViewShow(boolean b)
@@ -244,5 +244,6 @@ public class DateFragment extends CustomFragment {
             listView.setVisibility(View.GONE);
             editText.setVisibility(View.VISIBLE);
         }
+
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:keepScreenOn="true"
     android:orientation="vertical"
     android:weightSum="6">
@@ -45,12 +45,13 @@
             android:background="@drawable/ic_summary"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2.5"
         android:paddingBottom="5dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white">
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,15 +59,23 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:background="@android:color/white"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/nodata"
-            android:text="No data"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:background="@android:color/white"
-            android:visibility="gone"
-           />
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nodata"
+                android:gravity="center"
+                android:text="No data"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:background="@android:color/white"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

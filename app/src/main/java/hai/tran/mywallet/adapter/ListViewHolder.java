@@ -23,15 +23,19 @@ public class ListViewHolder implements View.OnLongClickListener{
     private int mPoint=0;
 
     protected ListViewHolder(View row)
-    {
+    {try {
+
         mIcon = (ImageView) row.findViewById(R.id.item_icon);
         mNote = (TextView) row.findViewById(R.id.item_notice);
         mDate = (TextView) row.findViewById(R.id.item_date);
         mValue = (TextView) row.findViewById(R.id.item_money);
         mSubValue = (TextView) row.findViewById(R.id.item_sub);
         mUnit = (TextView) row.findViewById(R.id.item_unit);
-       mBtDelete=(ImageView) row.findViewById(R.id.item_delete);
-       mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
+        mBtDelete = (ImageView) row.findViewById(R.id.item_delete);
+        mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
+    }
+    catch (NullPointerException n)
+    {}
     }
     public static ListViewHolder getViewHolder(View row)
     {
@@ -39,16 +43,16 @@ public class ListViewHolder implements View.OnLongClickListener{
     }
     public  void showBtAction(boolean b)
     {
-        if(b)
-        {
-            mBtDelete.setVisibility(View.VISIBLE);
-            mBtEdit.setVisibility(View.VISIBLE);
+        try {
+            if (b) {
+                mBtDelete.setVisibility(View.VISIBLE);
+                mBtEdit.setVisibility(View.VISIBLE);
+            } else {
+                mBtEdit.setVisibility(View.GONE);
+                mBtDelete.setVisibility(View.GONE);
+            }
         }
-        else
-        {
-            mBtEdit.setVisibility(View.GONE);
-            mBtDelete.setVisibility(View.GONE);
-        }
+        catch (NullPointerException n){}
     }
     public boolean isShowBtAction()
     {

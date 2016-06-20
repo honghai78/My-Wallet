@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.data.DataSQLLite;
+import hai.tran.mywallet.fragment.DateFragment;
+import hai.tran.mywallet.fragment.DetailFragment;
 import hai.tran.mywallet.object.DataMonth;
 import hai.tran.mywallet.object.FormatString;
 
@@ -54,10 +58,12 @@ public class CustomDialog extends Dialog {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra("MONTH", getMonthForInt(getMonthInt(mDate)));
-                getContext().startActivity(intent);
                 onBackPressed();
+                DetailFragment frag = new DetailFragment();
+                frag.setMonth(getMonthForInt(getMonthInt(mDate)));
+                FragmentTransaction fragmentTransaction =((MainActivity)mActivity).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.transition.slide_in, R.transition.slide_out);
+                fragmentTransaction.replace(R.id.fragment_main, frag).commit();
             }
         });
     }

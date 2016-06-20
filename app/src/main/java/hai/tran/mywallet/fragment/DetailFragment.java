@@ -3,6 +3,9 @@ package hai.tran.mywallet.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import hai.tran.mywallet.data.DataSQLLite;
  */
 public class DetailFragment extends CustomFragment {
 
+    String mMonth="";
     private ListView mListView;
     @Nullable
     @Override
@@ -39,9 +43,12 @@ public class DetailFragment extends CustomFragment {
 
     @Override
     public void configToolbar() {
-        Intent intent = getActivity().getIntent();
-        String month = intent.getStringExtra("MONTH");
-        setTitle("Detail for "+month);
+        setTitle("Detail for "+mMonth);
         mBtAdd.setVisibility(View.INVISIBLE);
     }
+    public void setMonth(String month)
+    {
+        mMonth=month;
+    }
+
 }

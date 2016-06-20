@@ -33,5 +33,4 @@ public class MainActivity extends CustomActivity {
         DataSharedPreferences.getDataSharedPreferences(getBaseContext()).setPreferencesString("DATE_SE", "");
     }
 
-
 }

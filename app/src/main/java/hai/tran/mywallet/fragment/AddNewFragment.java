@@ -4,6 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +44,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     private ItemType mItemType = ItemType.INCOME;
     private TextView mValue, mSub, mB1, mB2, mB3, mB4, mB5, mB6, mB7, mB8, mB9, mB10, mB0, mBOK, mBSp;
     int mCount = 0;
-    private static boolean UPDATE = false;
+    private boolean UPDATE = false;
     private Item mItem;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +54,11 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         return view;
     }
 
+    public void setItem(Item item)
+    {
+        mItem = item;
+        UPDATE =true;
+    }
     @Override
     public void configToolbar() {
         setTitle("Add New");
@@ -153,16 +161,14 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
             }
         });
 
-        Intent intent = getActivity().getIntent();
-        Item item = (Item) intent.getSerializableExtra("ITEM_SEND");
-        if(item!=null)
+
+        if(mItem!=null)
         {
-            mItem = item;
-            UPDATE = true;
+            UPDATE =true;
             editTextNote.setText(mItem.getmNote());
             editTextDate.setText(mItem.getmDate());
             mSpinner.setSelection(mItem.getmCategoriesID()-1);
-            mValue.setText(mItem.getmValue()+"");
+            mValue.setText(FormatString.format(mItem.getmValue()+""));
             if(mItem.getmType()==ItemType.EXPENSE.getValue())
                 mLinearLayoutRight.performClick();
         }
@@ -239,11 +245,28 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                     getmSqLite().updateItem(item);
                     mCount=0;
                     UPDATE=false;
-                    getActivity().finish();
+                    Fragment frag = new DateFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.transition.sli_re_in, R.transition.sli_re_out);
+                    fragmentTransaction.replace(R.id.fragment_main, frag).commit();
                 }
                 break;
             }
         }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    Fragment frag = new DateFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.transition.sli_re_in, R.transition.sli_re_out);
+                    fragmentTransaction.replace(R.id.fragment_main, frag).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
-
 }
