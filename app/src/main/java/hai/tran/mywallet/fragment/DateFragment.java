@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -142,6 +144,10 @@ public class DateFragment extends CustomFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //======================================================================
+                ListViewHolder.getViewHolder(view).linearLayout.animate().translationX(-30);
+
+                //======================================================
                 if (mListView != null)
                     ListViewHolder.getViewHolder(mListView).showBtAction(false);
                 mListView = view;
@@ -151,6 +157,7 @@ public class DateFragment extends CustomFragment {
                     @Override
                     public void run() {
                         ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                        ListViewHolder.getViewHolder(mListView).linearLayout.animate().translationX(20);
                         mListView=null;
                         mTimerHandler = null;
                     }
@@ -161,8 +168,10 @@ public class DateFragment extends CustomFragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (mListView != null)
+                if (mListView != null){
                     ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                }
+
                 mListView = null;
             }
 

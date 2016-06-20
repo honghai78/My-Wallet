@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -111,6 +113,10 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 mValue.setTextColor(getResources().getColor(R.color.colorBtClick));
                 mSub.setTextColor(getResources().getColor(R.color.colorBtClick));
                 mItemType = ItemType.INCOME;
+                mBtIn.setText("");
+                Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getActivity(), R.animator.anim_out);
+                mLinearLayoutLeft.startAnimation(hyperspaceJumpAnimation);
+                mBtIn.setText("INCOME");
 
             }
         });
@@ -124,6 +130,10 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 mValue.setTextColor(getResources().getColor(R.color.colorAccent));
                 mSub.setTextColor(getResources().getColor(R.color.colorAccent));
                 mItemType = ItemType.EXPENSE;
+                mBtEx.setText("");
+                Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getActivity(), R.animator.anim_in);
+                mLinearLayoutRight.startAnimation(hyperspaceJumpAnimation);
+                mBtEx.setText("EXPENSE");
 
             }
         });

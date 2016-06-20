@@ -3,6 +3,7 @@ package hai.tran.mywallet.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import hai.tran.mywallet.R;
@@ -21,6 +22,7 @@ public class ListViewHolder implements View.OnLongClickListener{
     private Context mContext = null;
     private String mIconName;
     private int mPoint=0;
+    public LinearLayout linearLayout;
 
     protected ListViewHolder(View row)
     {try {
@@ -33,6 +35,7 @@ public class ListViewHolder implements View.OnLongClickListener{
         mUnit = (TextView) row.findViewById(R.id.item_unit);
         mBtDelete = (ImageView) row.findViewById(R.id.item_delete);
         mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
+        linearLayout = (LinearLayout) row.findViewById(R.id.item_linear1);
     }
     catch (NullPointerException n)
     {}
