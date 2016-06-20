@@ -36,7 +36,7 @@ public class DateFragment extends CustomFragment {
     CalendarView mCalendarView;
     public static ListView listView;
     private TextView editText;
-    private List<Item> list;
+    private List<Item> list=null;
     private ListViewAdapter mListViewAdapter;
     DataSQLLite dataSQLLite;
     View mListView = null;
@@ -94,7 +94,17 @@ public class DateFragment extends CustomFragment {
                 int month = selectedDate.getMonth() + 1;
                 String date = year + "-" + month + "-" + selectedDate.getDate();
                 list = dataSQLLite.getDataItem(date);
-                mListViewAdapter.appendList(list);
+                if(list.size()>0)
+                {
+                    setListViewShow(true);
+                    mListViewAdapter.appendList(list);
+                }
+                else
+                {
+                    setListViewShow(false);
+                }
+
+
                 DataSharedPreferences.getDataSharedPreferences(getContext()).setPreferencesString("DATE_SE", date);
             }
         });
@@ -102,68 +112,68 @@ public class DateFragment extends CustomFragment {
         mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
             @Override
             public void onMonthChanged(@NonNull Date monthDate) {
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String date = df.format(monthDate);
-                Toast.makeText(getActivity(), date.toString(), Toast.LENGTH_LONG).show();
+                int year = monthDate.getYear() + 1900;
+                int month = monthDate.getMonth() + 1;
+                String date = year + "-" + month + "-" + monthDate.getDate();
+                list = dataSQLLite.getDataItem(date);
+                if(list.size()>0)
+                {
+                    setListViewShow(true);
+                    mListViewAdapter.appendList(list);
+                }
+                else
+                {
+                    setListViewShow(false);
+                }
             }
         });
 
         final Calendar calendar = Calendar.getInstance();
 
         listView = (ListView) view.findViewById(R.id.listView_main);
-
-
+        editText = (TextView) view.findViewById(R.id.nodata);
         list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE));
-        if (list != null) {
+        mListViewAdapter = new ListViewAdapter(getActivity(), getmCategories(), list);
+        listView.setAdapter(mListViewAdapter);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mListView != null)
+                    ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                mListView = view;
+                ListViewHolder.getViewHolder(view).showBtAction(true);
+                mTimerHandler = new Handler();
+                mTimerHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                        mListView=null;
+                        mTimerHandler = null;
+                    }
+                }, VISIBILITY_TIMEOUT);
+                return false;
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (mListView != null)
+                    ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                mListView = null;
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+        if (list.size()>0) {
+            setListViewShow(true);
             mListViewAdapter = new ListViewAdapter(getActivity(), getmCategories(), list);
             listView.setAdapter(mListViewAdapter);
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (mListView != null)
-                        ListViewHolder.getViewHolder(mListView).showBtAction(false);
-                    mListView = view;
-                    ListViewHolder.getViewHolder(view).showBtAction(true);
-                    mTimerHandler = new Handler();
-                    mTimerHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ListViewHolder.getViewHolder(mListView).showBtAction(false);
-                            mListView=null;
-                            mTimerHandler = null;
-                        }
-                    }, VISIBILITY_TIMEOUT);
-                    return false;
-                }
-            });
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (mListView != null && mListView!=view) {
-                        ListViewHolder.getViewHolder(mListView).showBtAction(false);
-                        mListView = null;
-                    }
-                }
-            });
-
-            listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {
-                    if (mListView != null)
-                        ListViewHolder.getViewHolder(mListView).showBtAction(false);
-                    mListView = null;
-                }
-
-                @Override
-                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                }
-            });
         } else {
-            editText = (TextView) view.findViewById(R.id.nodata);
-            editText.setText(getString(R.string.no_data));
-            editText.setVisibility(View.VISIBLE);
+            setListViewShow(false);
         }
 
         imageView = (ImageView) view.findViewById(R.id.btnew);
@@ -191,7 +201,15 @@ public class DateFragment extends CustomFragment {
             list = dataSQLLite.getDataItem(intent);
         else
             list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
-        mListViewAdapter.appendList(list);
+        if(list.size()>0)
+        {
+            setListViewShow(true);
+            mListViewAdapter.appendList(list);
+
+        }
+
+        else setListViewShow(false);
+
     }
 
     @Override
@@ -206,7 +224,25 @@ public class DateFragment extends CustomFragment {
             list = dataSQLLite.getDataItem(intent);
         else
             list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
-        mListViewAdapter.appendList(list);
+        if(list.size()>0) {
+            setListViewShow(true);
+            mListViewAdapter.appendList(list);
+        }
+        else setListViewShow(false);
+
     }
 
+    public void setListViewShow(boolean b)
+    {
+        if(b)
+        {
+            listView.setVisibility(View.VISIBLE);
+            editText.setVisibility(View.GONE);
+        }
+        else
+        {
+            listView.setVisibility(View.GONE);
+            editText.setVisibility(View.VISIBLE);
+        }
+    }
 }
