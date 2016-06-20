@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notice"
+                android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -58,10 +59,10 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="3dp"
                 android:text="money"
+                android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/item_sub"
                 android:layout_width="wrap_content"

@@ -21,6 +21,7 @@ import java.util.List;
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.adapter.CategoryAdapter;
 import hai.tran.mywallet.data.DataSQLLite;
+import hai.tran.mywallet.data.DataSharedPreferences;
 import hai.tran.mywallet.object.Categories;
 import hai.tran.mywallet.object.FormatString;
 import hai.tran.mywallet.object.Item;
@@ -54,6 +55,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     public void configToolbar() {
         setTitle("Add New");
         mBtAdd.setVisibility(View.INVISIBLE);
+        if(UPDATE) setTitle("Edit");
     }
 
     @Override
@@ -165,6 +167,9 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 mLinearLayoutRight.performClick();
         }
 
+        String intentDate = DataSharedPreferences.getDataSharedPreferences(getContext()).getPreferencesString("DATE_SE");
+        if (intentDate.length()>1)
+            editTextDate.setText(intentDate);
     }
 
     @Override
