@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BaseAdapterEx<T> extends BaseAdapter {
 
-    private Context context;
+    public Context context;
     private LayoutInflater inflater;
     private List<T> list;
 
@@ -46,10 +46,10 @@ public abstract class BaseAdapterEx<T> extends BaseAdapter {
      * @param l The items to append.
      */
     public void appendList(List<T> l) {
-        if (l != null && l.size() > 0) {
+
+            clearList();
             this.list.addAll(l);
             this.notifyDataSetChanged();
-        }
     }
 
 

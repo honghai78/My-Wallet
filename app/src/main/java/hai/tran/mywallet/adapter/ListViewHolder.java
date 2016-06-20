@@ -6,18 +6,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import hai.tran.mywallet.R;
+import hai.tran.mywallet.object.FormatString;
 import hai.tran.mywallet.object.Item;
 import hai.tran.mywallet.object.ItemType;
 
 /**
  * Created by hai.tran on 6/17/2016.
  */
-public class ListViewHolder {
-    private ImageView mIcon, mBtDelete, mBtEdit;
+public class ListViewHolder implements View.OnLongClickListener{
+    public ImageView mIcon, mBtDelete, mBtEdit;
     private TextView mNote, mDate, mValue, mSubValue, mUnit;
     private static final String TAG = ListViewHolder.class.getSimpleName();
     private Item mItem;
     private Context mContext = null;
+    private String mIconName;
+    private int mPoint=0;
 
     protected ListViewHolder(View row)
     {
@@ -27,11 +30,14 @@ public class ListViewHolder {
         mValue = (TextView) row.findViewById(R.id.item_money);
         mSubValue = (TextView) row.findViewById(R.id.item_sub);
         mUnit = (TextView) row.findViewById(R.id.item_unit);
-        mBtDelete=(ImageView) row.findViewById(R.id.item_delete);
-        mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
+       mBtDelete=(ImageView) row.findViewById(R.id.item_delete);
+       mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
     }
-
-    protected  void showBtAction(boolean b)
+    public static ListViewHolder getViewHolder(View row)
+    {
+        return new ListViewHolder(row);
+    }
+    public  void showBtAction(boolean b)
     {
         if(b)
         {
@@ -44,27 +50,41 @@ public class ListViewHolder {
             mBtDelete.setVisibility(View.GONE);
         }
     }
-    protected void updateInfoData(Item item, Context context)
+    public boolean isShowBtAction()
+    {
+        if(mBtDelete.getVisibility()==View.VISIBLE)
+            return true;
+        else return false;
+    }
+    protected void updateInfoData(Item item, Context context, String iconName)
     {
         mContext=context;
         mItem = item;
-        updateViewData(mItem, mContext);
+        mIconName = iconName;
+        updateViewData(mItem, mContext, mIconName);
     }
 
-    protected void updateViewData(Item item, Context context)
+    protected void updateViewData(Item item, final Context context, String iconName)
     {
+        int id = mContext.getResources().getIdentifier(iconName, "drawable", mContext.getPackageName());
+        mIcon.setImageResource(id);
         mNote.setText(item.getmNote());
         mDate.setText(item.getmDate());
-        mValue.setText(String.format("%,d", item.getmValue()));
+        mValue.setText(FormatString.format(item.getmValue()+""));
 
-        if(item.getmType() == ItemType.INCOME) {
+        if(item.getmType() == ItemType.INCOME.getValue()) {
             mValue.setTextColor(context.getResources().getColor(R.color.colorBtClick));
             mSubValue.setTextColor(context.getResources().getColor(R.color.colorBtClick));
             mUnit.setTextColor(context.getResources().getColor(R.color.colorBtClick));
         } else {
-            mValue.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-            mSubValue.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-            mUnit.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            mValue.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            mSubValue.setTextColor(context.getResources().getColor(R.color.colorAccent));
+            mUnit.setTextColor(context.getResources().getColor(R.color.colorAccent));
         }
+    }
+    @Override
+    public boolean onLongClick(View v) {
+        showBtAction(true);
+        return false;
     }
 }

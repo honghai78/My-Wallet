@@ -1,5 +1,7 @@
 package hai.tran.mywallet.object;
 
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 /**
@@ -43,8 +45,8 @@ public class Item implements Serializable {
         return mNote;
     }
 
-    public ItemType getmType() {
-        return mType;
+    public int getmType() {
+        return mType.getValue();
     }
 
     public void setmCategoriesID(int mCategoriesID) {

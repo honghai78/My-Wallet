@@ -2,7 +2,6 @@ package hai.tran.mywallet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.GridView;
@@ -10,14 +9,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import hai.tran.mywallet.activity.CustomActivity;
+import hai.tran.mywallet.activity.MainActivity;
 import hai.tran.mywallet.adapter.CustomAdapter;
 import hai.tran.mywallet.data.DataSharedPreferences;
-import hai.tran.mywallet.object.Categories;
 
 /**
  * Created by hai.tran on 6/16/2016.
  */
-public class PassLockActivity extends AppCompatActivity {
+public class PassLockActivity extends CustomActivity {
 
     private GridView mGridView;
 
@@ -36,6 +36,7 @@ public class PassLockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_lock);
         init();
+        DataSharedPreferences.getDataSharedPreferences(getBaseContext()).setPreferencesString("DATE_SE", "");
         String arrry[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", ""};
         CustomAdapter customAdapter = new CustomAdapter(this, arrry, onClickListener());
         mGridView.setAdapter(customAdapter);
@@ -99,9 +100,6 @@ public class PassLockActivity extends AppCompatActivity {
 
                 if (mPass.equals(mPassData)) {
                     Intent i = new Intent(getBaseContext(), MainActivity.class);
-                    Categories categories1[] ={new Categories(1, "a", "A"), new Categories(1, "a", "A")};
-                    Categories categories = new Categories(1, "a", "A");
-                    i.putExtra("PA", categories1);
                     startActivity(i);
                     finish();
                 } else {

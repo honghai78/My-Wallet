@@ -17,7 +17,6 @@ public class Categories implements Serializable{
         this.mName = name;
         this.mIconName = iconName;
     }
-
     public String getIconName() {
         return mIconName;
     }
