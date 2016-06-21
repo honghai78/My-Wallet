@@ -62,7 +62,7 @@ public class ListViewAdapter extends BaseAdapterEx<Item> {
                 ((MainActivity) getContext()).getmSqLite().deleteItem(get(position).getmID());
                 remove(position);
                 notifyDataSetChanged();
-                viewHolder.showBtAction(false);
+              //  viewHolder.showBtAction(false);
 
             }
         });

@@ -39,13 +39,13 @@ public class DateFragment extends CustomFragment {
     CalendarView mCalendarView;
     public static ListView listView;
     private TextView editText;
-    private List<Item> list=null;
+    private List<Item> list = null;
     private ListViewAdapter mListViewAdapter;
     DataSQLLite dataSQLLite;
     View mListView = null;
     private ImageView imageView;
     private Handler mTimerHandler = null;
-    private static int VISIBILITY_TIMEOUT = 3000;
+    private static int VISIBILITY_TIMEOUT = 2000;
 
     @Nullable
     @Override
@@ -99,15 +99,11 @@ public class DateFragment extends CustomFragment {
                 int month = selectedDate.getMonth() + 1;
                 String date = year + "-" + month + "-" + selectedDate.getDate();
                 list = dataSQLLite.getDataItem(date);
-                if(list.size()>0)
-                {
+                if (list.size() > 0) {
                     setListViewShow(true);
                     mListViewAdapter.appendList(list);
-                }
-                else
-                {
+                } else {
                     setListViewShow(false);
-                    Toast.makeText(getContext(), "1", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -122,13 +118,10 @@ public class DateFragment extends CustomFragment {
                 int month = monthDate.getMonth() + 1;
                 String date = year + "-" + month + "-" + monthDate.getDate();
                 list = dataSQLLite.getDataItem(date);
-                if(list.size()>0)
-                {
+                if (list.size() > 0) {
                     setListViewShow(true);
                     mListViewAdapter.appendList(list);
-                }
-                else
-                {
+                } else {
                     setListViewShow(false);
                 }
             }
@@ -145,20 +138,21 @@ public class DateFragment extends CustomFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //======================================================================
-                ListViewHolder.getViewHolder(view).linearLayout.animate().translationX(-30);
+                ListViewHolder.getViewHolder(view).linearLayoutTotal.animate().translationX(-300);
+                ListViewHolder.getViewHolder(view).mLinearLayoutItem.animate().translationX(view.getWidth() - ListViewHolder.getViewHolder(view).linearLayoutTotal.getWidth());
 
                 //======================================================
-                if (mListView != null)
-                    ListViewHolder.getViewHolder(mListView).showBtAction(false);
+
                 mListView = view;
-                ListViewHolder.getViewHolder(view).showBtAction(true);
                 mTimerHandler = new Handler();
                 mTimerHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        ListViewHolder.getViewHolder(mListView).showBtAction(false);
-                        ListViewHolder.getViewHolder(mListView).linearLayout.animate().translationX(20);
-                        mListView=null;
+                        if (mListView != null) {
+                            ListViewHolder.getViewHolder(mListView).linearLayoutTotal.animate().translationX(0);
+                            ListViewHolder.getViewHolder(mListView).mLinearLayoutItem.animate().translationX(300);
+                        }
+                        mListView = null;
                         mTimerHandler = null;
                     }
                 }, VISIBILITY_TIMEOUT);
@@ -168,8 +162,9 @@ public class DateFragment extends CustomFragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (mListView != null){
-                    ListViewHolder.getViewHolder(mListView).showBtAction(false);
+                if (mListView != null) {
+                    ListViewHolder.getViewHolder(mListView).linearLayoutTotal.animate().translationX(0);
+                    ListViewHolder.getViewHolder(mListView).mLinearLayoutItem.animate().translationX(300);
                 }
 
                 mListView = null;
@@ -206,14 +201,11 @@ public class DateFragment extends CustomFragment {
             list = dataSQLLite.getDataItem(intent);
         else
             list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
-        if(list.size()>0)
-        {
-            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(),list);
+        if (list.size() > 0) {
+            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(), list);
             listView.setAdapter(mListViewAdapter);
 
-        }
-
-        else setListViewShow(false);
+        } else setListViewShow(false);
 
     }
 
@@ -229,14 +221,11 @@ public class DateFragment extends CustomFragment {
             list = dataSQLLite.getDataItem(intent);
         else
             list = dataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
-        if(list.size()>0)
-        {
-            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(),list);
+        if (list.size() > 0) {
+            mListViewAdapter = new ListViewAdapter(getContext(), getmCategories(), list);
             listView.setAdapter(mListViewAdapter);
 
-        }
-
-        else setListViewShow(false);
+        } else setListViewShow(false);
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
@@ -251,15 +240,11 @@ public class DateFragment extends CustomFragment {
         });
     }
 
-    public void setListViewShow(boolean b)
-    {
-        if(b)
-        {
+    public void setListViewShow(boolean b) {
+        if (b) {
             listView.setVisibility(View.VISIBLE);
             editText.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             listView.setVisibility(View.GONE);
             editText.setVisibility(View.VISIBLE);
         }

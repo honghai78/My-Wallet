@@ -44,7 +44,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     private EditText editTextDate, editTextNote;
     private Spinner mSpinner;
     private ItemType mItemType = ItemType.INCOME;
-    private TextView mValue, mSub, mB1, mB2, mB3, mB4, mB5, mB6, mB7, mB8, mB9, mB10, mB0, mBOK, mBSp;
+    private TextView mValue, mSub, mB1, mB2, mB3, mB4, mB5, mB6, mB7, mB8, mB9, mB10, mB0, mBOK;
+    private LinearLayout mBSp;
     int mCount = 0;
     private boolean UPDATE = false;
     private Item mItem;
@@ -82,7 +83,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         mB9 = (TextView) view.findViewById(R.id.kb9);
         mB10 = (TextView) view.findViewById(R.id.kb10);
         mB0 = (TextView) view.findViewById(R.id.kb0);
-        mBSp = (TextView) view.findViewById(R.id.spa);
+        mBSp = (LinearLayout) view.findViewById(R.id.lin_bt_sp);
         mBOK = (TextView) view.findViewById(R.id.kbok);
         mB1.setOnClickListener(this);
         mB2.setOnClickListener(this);
@@ -97,8 +98,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         mBSp.setOnClickListener(this);
         mBOK.setOnClickListener(this);
         editTextNote = (EditText) view.findViewById(R.id.add_ed1);
-        mLinearLayoutLeft = (LinearLayout) view.findViewById(R.id.lin_bt_in);
-        mLinearLayoutRight = (LinearLayout) view.findViewById(R.id.lin_bt_ex);
+        mLinearLayoutLeft = (LinearLayout) view.findViewById(R.id.lin_bt_in1);
+        mLinearLayoutRight = (LinearLayout) view.findViewById(R.id.lin_bt_ex1);
         mValue = (TextView) view.findViewById(R.id.add_value);
         mSub = (TextView) view.findViewById(R.id.add_sub);
         mBtIn = (TextView) view.findViewById(R.id.bt_in);
@@ -113,10 +114,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 mValue.setTextColor(getResources().getColor(R.color.colorBtClick));
                 mSub.setTextColor(getResources().getColor(R.color.colorBtClick));
                 mItemType = ItemType.INCOME;
-                mBtIn.setText("");
                 Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getActivity(), R.animator.anim_out);
                 mLinearLayoutLeft.startAnimation(hyperspaceJumpAnimation);
-                mBtIn.setText("INCOME");
 
             }
         });
@@ -130,10 +129,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 mValue.setTextColor(getResources().getColor(R.color.colorAccent));
                 mSub.setTextColor(getResources().getColor(R.color.colorAccent));
                 mItemType = ItemType.EXPENSE;
-                mBtEx.setText("");
                 Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(getActivity(), R.animator.anim_in);
                 mLinearLayoutRight.startAnimation(hyperspaceJumpAnimation);
-                mBtEx.setText("EXPENSE");
 
             }
         });
@@ -201,7 +198,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
             case R.id.kb6:
             case R.id.kb7:
             case R.id.kb8:
-            case R.id.kb9: {
+            case R.id.kb9:
+            if(FormatString.notFormat(mValue.getText().toString()).length()<9){
                 long kt = Long.parseLong(FormatString.notFormat(mValue.getText()+""));
                 if (mCount == 0 && kt ==0) {
                     mValue.setText(FormatString.format(((TextView) v).getText().toString()));
@@ -212,9 +210,10 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                     mCount=1;
                     mValue.setText(FormatString.format(FormatString.notFormat(mValue.getText()+"") + ((TextView) v).getText().toString()));
                 }
-                break;
+
             }
-            case R.id.spa: {
+                break;
+            case R.id.lin_bt_sp: {
                 if (FormatString.notFormat(mValue.getText()+"").length() > 3)
                 {
                     mValue.setText(FormatString.format((FormatString.notFormat(mValue.getText()+"").subSequence(0, FormatString.notFormat(mValue.getText()+"").length() - 1)).toString()));}

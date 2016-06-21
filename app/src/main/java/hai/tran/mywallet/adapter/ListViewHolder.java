@@ -22,7 +22,7 @@ public class ListViewHolder implements View.OnLongClickListener{
     private Context mContext = null;
     private String mIconName;
     private int mPoint=0;
-    public LinearLayout linearLayout;
+    public LinearLayout linearLayoutTotal, mLinearLayoutItem;
 
     protected ListViewHolder(View row)
     {try {
@@ -35,7 +35,8 @@ public class ListViewHolder implements View.OnLongClickListener{
         mUnit = (TextView) row.findViewById(R.id.item_unit);
         mBtDelete = (ImageView) row.findViewById(R.id.item_delete);
         mBtEdit = (ImageView) row.findViewById(R.id.item_edit);
-        linearLayout = (LinearLayout) row.findViewById(R.id.item_linear1);
+        linearLayoutTotal = (LinearLayout) row.findViewById(R.id.item_linear1);
+        mLinearLayoutItem = (LinearLayout) row.findViewById(R.id.lin_main);
     }
     catch (NullPointerException n)
     {}
@@ -44,19 +45,19 @@ public class ListViewHolder implements View.OnLongClickListener{
     {
         return new ListViewHolder(row);
     }
-    public  void showBtAction(boolean b)
-    {
-        try {
-            if (b) {
-                mBtDelete.setVisibility(View.VISIBLE);
-                mBtEdit.setVisibility(View.VISIBLE);
-            } else {
-                mBtEdit.setVisibility(View.GONE);
-                mBtDelete.setVisibility(View.GONE);
-            }
-        }
-        catch (NullPointerException n){}
-    }
+//    public  void showBtAction(boolean b)
+//    {
+//        try {
+//            if (b) {
+//                mBtDelete.setVisibility(View.VISIBLE);
+//                mBtEdit.setVisibility(View.VISIBLE);
+//            } else {
+//                mBtEdit.setVisibility(View.GONE);
+//                mBtDelete.setVisibility(View.GONE);
+//            }
+//        }
+//        catch (NullPointerException n){}
+//    }
     public boolean isShowBtAction()
     {
         if(mBtDelete.getVisibility()==View.VISIBLE)
@@ -91,7 +92,7 @@ public class ListViewHolder implements View.OnLongClickListener{
     }
     @Override
     public boolean onLongClick(View v) {
-        showBtAction(true);
+      //  showBtAction(true);
         return false;
     }
 }

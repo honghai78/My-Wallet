@@ -84,35 +84,42 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
+       </LinearLayout>
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:translationX="100dp"
+        android:id="@+id/lin_main"
+        android:weightSum="2"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorBtClick">
-
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/colorBtClick"
+            android:layout_weight="1"
+            android:gravity="center">
             <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
                 android:id="@+id/item_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:padding="2dp"
-                android:src="@drawable/ic_edit"
-                android:visibility="gone" />
+                android:src="@drawable/ic_edit"/>
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent">
-
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/colorAccent"
+            android:layout_weight="1"
+            android:gravity="center">
             <ImageView
-                android:id="@+id/item_delete"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:id="@+id/item_delete"
                 android:padding="2dp"
-                android:src="@drawable/ic_delete"
-                android:visibility="gone" />
+                android:src="@drawable/ic_delete"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
