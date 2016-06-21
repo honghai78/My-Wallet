@@ -73,6 +73,7 @@ public abstract class CustomFragment extends Fragment {
     }
 
     protected abstract void configToolbar();
+
     @Override
     public void onResume() {
         super.onResume();

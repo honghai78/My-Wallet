@@ -13,7 +13,7 @@ import hai.tran.mywallet.object.Item;
 /**
  * Created by hongh on 6/18/2016.
  */
-public class CategoryAdapter extends BaseAdapterEx{
+public class CategoryAdapter extends BaseAdapterEx {
     private static final String TAG = ListViewAdapter.class.getSimpleName();
 
     public CategoryAdapter(Context context, List<Categories> list) {
@@ -62,6 +62,6 @@ public class CategoryAdapter extends BaseAdapterEx{
             viewHolder.setData(getContext(), (Categories) get(position));
         }
         return row;
-      //  return super.getDropDownView(position, convertView, parent);
+        //  return super.getDropDownView(position, convertView, parent);
     }
 }

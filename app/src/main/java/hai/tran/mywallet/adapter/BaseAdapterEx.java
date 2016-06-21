@@ -47,9 +47,9 @@ public abstract class BaseAdapterEx<T> extends BaseAdapter {
      */
     public void appendList(List<T> l) {
 
-            clearList();
-            this.list.addAll(l);
-            this.notifyDataSetChanged();
+        clearList();
+        this.list.addAll(l);
+        this.notifyDataSetChanged();
     }
 
 

@@ -29,6 +29,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "walletsql.db";
     private Context mContext;
     private ItemType ITEM_TYPE = ItemType.INCOME;
+
     public DataSQLLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
@@ -115,8 +116,8 @@ public class DataSQLLite extends SQLiteOpenHelper {
                 ItemType itemType = ItemType.INCOME;
                 if (type == ItemType.EXPENSE.getValue())
                     itemType = ItemType.EXPENSE;
-                if(c.getString(3).equals(date))
-                list.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), c.getInt(5)));
+                if (c.getString(3).equals(date))
+                    list.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), c.getInt(5)));
                 c.moveToNext();
             }
         } catch (CursorIndexOutOfBoundsException cursorIndexOutOfBoundsException) {
@@ -155,83 +156,75 @@ public class DataSQLLite extends SQLiteOpenHelper {
                 new String[]{String.valueOf(item.getmID())});
     }
 
-    private String getMonth(String date)
-    {
-       return  date.trim().split("-")[1];
+    private String getMonth(String date) {
+        return date.trim().split("-")[1];
     }
 
-    private String getYear(String date)
-    {
+    private String getYear(String date) {
         return date.trim().split("-")[0];
     }
+
     public DataMonth getDataValueMonth(String date) {
         long tt = 0, in = 0, ex = 0;
         String month, year;
-        int temp = 1+Integer.parseInt(date.trim().split("-")[1]);
-        month = temp+"";
+        int temp = 1 + Integer.parseInt(date.trim().split("-")[1]);
+        month = temp + "";
         year = getYear(date);
         List<Item> itemList = getDataItem();
-        for(int i=0; i<itemList.size(); i++)
-        {
+        for (int i = 0; i < itemList.size(); i++) {
             Item item = itemList.get(i);
-            if(getMonth(item.getmDate()).equals(month) && getYear(item.getmDate()).equals(year))
-            {
-                if(item.getmType() == ItemType.INCOME.getValue())
-                    in = in+item.getmValue();
+            if (getMonth(item.getmDate()).equals(month) && getYear(item.getmDate()).equals(year)) {
+                if (item.getmType() == ItemType.INCOME.getValue())
+                    in = in + item.getmValue();
                 else
-                    ex = ex+item.getmValue();
+                    ex = ex + item.getmValue();
             }
         }
         tt = in - ex;
         return new DataMonth(tt, in, ex);
     }
-    public List getObjectWithMonth(String date)
-    {
+
+    public List getObjectWithMonth(String date) {
         int tt, in, ex;
         String month, year;
-        int temp = 1+Integer.parseInt(date.trim().split("-")[1]);
-        month = temp+"";
+        int temp = 1 + Integer.parseInt(date.trim().split("-")[1]);
+        month = temp + "";
         year = getYear(date);
         List<Item> tem = null;
         List list = new ArrayList();
         List<Categories> categoriList = getDataCategory();
         List itemList = getDataItem();
 
-        for(int i=0; i<categoriList.size(); i++)
-        {
-           tem = getItemWithCategories(categoriList.get(i).getId());
-            if(tem.size()>0)
-            {
+        for (int i = 0; i < categoriList.size(); i++) {
+            tem = getItemWithCategories(categoriList.get(i).getId());
+            if (tem.size() > 0) {
                 Categories categories = categoriList.get(i);
-                list.add(new CategoriesValue(categories.getId(),categories.getName(), categories.getIconName(), getValue(tem), ITEM_TYPE));
-                for(int j=0; j<tem.size(); j++)
+                list.add(new CategoriesValue(categories.getId(), categories.getName(), categories.getIconName(), getValue(tem), ITEM_TYPE));
+                for (int j = 0; j < tem.size(); j++)
                     list.add(tem.get(j));
             }
         }
         return list;
     }
 
-    public long getValue(List<Item> itemList)
-    {
-        long  in=0, ex=0;
-        for(int i=0; i<itemList.size(); i++)
-        {
+    public long getValue(List<Item> itemList) {
+        long in = 0, ex = 0;
+        for (int i = 0; i < itemList.size(); i++) {
             Item item = itemList.get(i);
-                if(item.getmType() == ItemType.INCOME.getValue()) {
-                    in = in + item.getmValue();
-                }
-                else {
-                    ex = ex + item.getmValue();
-                }
+            if (item.getmType() == ItemType.INCOME.getValue()) {
+                in = in + item.getmValue();
+            } else {
+                ex = ex + item.getmValue();
+            }
 
         }
-        if(ex>0)
+        if (ex > 0)
             ITEM_TYPE = ItemType.EXPENSE;
         else ITEM_TYPE = ItemType.INCOME;
         return in - ex;
     }
-    public List getItemWithCategories(int idCategories)
-    {
+
+    public List getItemWithCategories(int idCategories) {
         ArrayList<Item> stringDataSearch = new ArrayList<>();
         Cursor c = getReadableDatabase().query(DataTable.TABLE_ITEM_NAME, null, null, null, null, null, null);
         c.moveToFirst();
@@ -242,8 +235,8 @@ public class DataSQLLite extends SQLiteOpenHelper {
                 if (type == ItemType.EXPENSE.getValue())
                     itemType = ItemType.EXPENSE;
                 int idC = c.getInt(5);
-                if(idC==idCategories)
-                stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
+                if (idC == idCategories)
+                    stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
                 c.moveToNext();
             }
         } catch (CursorIndexOutOfBoundsException cursorIndexOutOfBoundsException) {

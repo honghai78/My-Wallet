@@ -43,7 +43,7 @@ public class CustomDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_dialog);
-        mImageView  = (ImageView) findViewById(R.id.imageView);
+        mImageView = (ImageView) findViewById(R.id.imageView);
         mTextViewTotal = (TextView) findViewById(R.id.textTotal);
         mTextViewExpense = (TextView) findViewById(R.id.textExpense);
         mTextViewIncome = (TextView) findViewById(R.id.textIncome);
@@ -51,17 +51,17 @@ public class CustomDialog extends Dialog {
 
         DataSQLLite dataSQLLite = new DataSQLLite(getContext());
         DataMonth dataMonth = dataSQLLite.getDataValueMonth(mDate);
-        mTextViewIncome.setText(FormatString.format(dataMonth.getmValueIncome()+"")+",000 VNĐ");
-        mTextViewExpense.setText(FormatString.format(dataMonth.getmValueExpense()+"")+",000 VNĐ");
-        mTextViewTotal.setText(FormatString.format(dataMonth.getmValueTotal()+"")+",000 VNĐ");
-        mTextViewTile.setText("Sumary for "+mMonth);
+        mTextViewIncome.setText(FormatString.format(dataMonth.getmValueIncome() + "") + ",000 VNĐ");
+        mTextViewExpense.setText(FormatString.format(dataMonth.getmValueExpense() + "") + ",000 VNĐ");
+        mTextViewTotal.setText(FormatString.format(dataMonth.getmValueTotal() + "") + ",000 VNĐ");
+        mTextViewTile.setText("Sumary for " + mMonth);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
                 DetailFragment frag = new DetailFragment();
                 frag.setMonth(getMonthForInt(getMonthInt(mDate)));
-                FragmentTransaction fragmentTransaction =((MainActivity)mActivity).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = ((MainActivity) mActivity).getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.transition.slide_in, R.transition.slide_out);
                 fragmentTransaction.replace(R.id.fragment_main, frag).commit();
             }
@@ -70,7 +70,7 @@ public class CustomDialog extends Dialog {
 
     private String getMonthForInt(int num) {
         String month = "wrong";
-        String[] months ={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         if (num >= 0 && num <= 11) {
             month = months[num];
         }

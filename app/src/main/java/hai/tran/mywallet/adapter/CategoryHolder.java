@@ -15,15 +15,13 @@ public class CategoryHolder {
     ImageView mImageView;
     TextView mTextView;
 
-    protected CategoryHolder(View row)
-    {
+    protected CategoryHolder(View row) {
         mImageView = (ImageView) row.findViewById(R.id.item_im);
         mTextView = (TextView) row.findViewById(R.id.item_te);
     }
 
-    protected void setData(Context context, Categories categories)
-    {
-        mImageView.setImageResource(context.getResources().getIdentifier(categories.getIconName(),"drawable", context.getPackageName()));
+    protected void setData(Context context, Categories categories) {
+        mImageView.setImageResource(context.getResources().getIdentifier(categories.getIconName(), "drawable", context.getPackageName()));
         mTextView.setText(categories.getName());
     }
 }

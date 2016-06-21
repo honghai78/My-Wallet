@@ -49,6 +49,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     int mCount = 0;
     private boolean UPDATE = false;
     private Item mItem;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,16 +58,16 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         return view;
     }
 
-    public void setItem(Item item)
-    {
+    public void setItem(Item item) {
         mItem = item;
-        UPDATE =true;
+        UPDATE = true;
     }
+
     @Override
     public void configToolbar() {
         setTitle("Add New");
         mBtAdd.setVisibility(View.INVISIBLE);
-        if(UPDATE) setTitle("Edit");
+        if (UPDATE) setTitle("Edit");
     }
 
     @Override
@@ -138,8 +139,8 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         imageViewPick = (ImageView) view.findViewById(R.id.add_pic);
         editTextDate = (EditText) view.findViewById(R.id.add_ed2);
         final Calendar calendar = Calendar.getInstance();
-        int month=calendar.get(Calendar.MONTH)+1;
-        editTextDate.setText(calendar.get(Calendar.YEAR)+"-"+month+"-"+calendar.get(Calendar.DATE));
+        int month = calendar.get(Calendar.MONTH) + 1;
+        editTextDate.setText(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
         imageViewPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,19 +170,18 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         });
 
 
-        if(mItem!=null)
-        {
-            UPDATE =true;
+        if (mItem != null) {
+            UPDATE = true;
             editTextNote.setText(mItem.getmNote());
             editTextDate.setText(mItem.getmDate());
-            mSpinner.setSelection(mItem.getmCategoriesID()-1);
-            mValue.setText(FormatString.format(mItem.getmValue()+""));
-            if(mItem.getmType()==ItemType.EXPENSE.getValue())
+            mSpinner.setSelection(mItem.getmCategoriesID() - 1);
+            mValue.setText(FormatString.format(mItem.getmValue() + ""));
+            if (mItem.getmType() == ItemType.EXPENSE.getValue())
                 mLinearLayoutRight.performClick();
         }
 
         String intentDate = DataSharedPreferences.getDataSharedPreferences(getContext()).getPreferencesString("DATE_SE");
-        if (intentDate.length()>1)
+        if (intentDate.length() > 1)
             editTextDate.setText(intentDate);
     }
 
@@ -199,26 +199,24 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
             case R.id.kb7:
             case R.id.kb8:
             case R.id.kb9:
-            if(FormatString.notFormat(mValue.getText().toString()).length()<9){
-                long kt = Long.parseLong(FormatString.notFormat(mValue.getText()+""));
-                if (mCount == 0 && kt ==0) {
-                    mValue.setText(FormatString.format(((TextView) v).getText().toString()));
-                    if (id != R.id.kb0)
-                        mCount++;
-                } else
-                {
-                    mCount=1;
-                    mValue.setText(FormatString.format(FormatString.notFormat(mValue.getText()+"") + ((TextView) v).getText().toString()));
-                }
+                if (FormatString.notFormat(mValue.getText().toString()).length() < 9) {
+                    long kt = Long.parseLong(FormatString.notFormat(mValue.getText() + ""));
+                    if (mCount == 0 && kt == 0) {
+                        mValue.setText(FormatString.format(((TextView) v).getText().toString()));
+                        if (id != R.id.kb0)
+                            mCount++;
+                    } else {
+                        mCount = 1;
+                        mValue.setText(FormatString.format(FormatString.notFormat(mValue.getText() + "") + ((TextView) v).getText().toString()));
+                    }
 
-            }
+                }
                 break;
             case R.id.lin_bt_sp: {
-                if (FormatString.notFormat(mValue.getText()+"").length() > 3)
-                {
-                    mValue.setText(FormatString.format((FormatString.notFormat(mValue.getText()+"").subSequence(0, FormatString.notFormat(mValue.getText()+"").length() - 1)).toString()));}
-                else if(FormatString.notFormat(mValue.getText()+"").length() >= 1)
-                    mValue.setText((mValue.getText()+"").subSequence(0, mValue.getText().length() - 1));
+                if (FormatString.notFormat(mValue.getText() + "").length() > 3) {
+                    mValue.setText(FormatString.format((FormatString.notFormat(mValue.getText() + "").subSequence(0, FormatString.notFormat(mValue.getText() + "").length() - 1)).toString()));
+                } else if (FormatString.notFormat(mValue.getText() + "").length() >= 1)
+                    mValue.setText((mValue.getText() + "").subSequence(0, mValue.getText().length() - 1));
                 if (mValue.getText().length() == 0) {
                     mValue.setText("0");
                     mCount = 0;
@@ -226,12 +224,12 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                 break;
             }
             case R.id.kbok: {
-                long kt = Long.parseLong(FormatString.notFormat(mValue.getText()+""));
-                if(kt==0) {
+                long kt = Long.parseLong(FormatString.notFormat(mValue.getText() + ""));
+                if (kt == 0) {
                     Toast.makeText(getActivity(), "Not save! Please enter value", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!UPDATE) {
+                if (!UPDATE) {
                     int idItem = 1;
                     if (mCount > 0) {
                         List<Item> list = getmSqLite().getDataItem();
@@ -247,13 +245,11 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
                         } else
                             Toast.makeText(getActivity(), "Error! Can not save", Toast.LENGTH_LONG).show();
                     }
-                }
-                else
-                {
-                    Item item = new Item(mItem.getmID(),mItemType,editTextNote.getText().toString(), editTextDate.getText().toString(), Long.parseLong(FormatString.notFormat(mValue.getText().toString())), mSpinner.getSelectedItemPosition()+1);
+                } else {
+                    Item item = new Item(mItem.getmID(), mItemType, editTextNote.getText().toString(), editTextDate.getText().toString(), Long.parseLong(FormatString.notFormat(mValue.getText().toString())), mSpinner.getSelectedItemPosition() + 1);
                     getmSqLite().updateItem(item);
-                    mCount=0;
-                    UPDATE=false;
+                    mCount = 0;
+                    UPDATE = false;
                     Fragment frag = new DateFragment();
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.transition.sli_re_in, R.transition.sli_re_out);

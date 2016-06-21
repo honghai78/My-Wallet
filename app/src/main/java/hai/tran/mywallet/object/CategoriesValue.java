@@ -4,12 +4,12 @@ package hai.tran.mywallet.object;
  * Created by hongh on 6/19/2016.
  */
 public class CategoriesValue extends Categories {
-    private long mValue=0;
+    private long mValue = 0;
     private ItemType mItemType;
-    public CategoriesValue(int id, String name, String iconName, long value, ItemType itemType)
-    {
+
+    public CategoriesValue(int id, String name, String iconName, long value, ItemType itemType) {
         super(id, name, iconName);
-        mValue=value;
+        mValue = value;
         mItemType = itemType;
     }
 

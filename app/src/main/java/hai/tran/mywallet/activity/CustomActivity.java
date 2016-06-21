@@ -22,12 +22,13 @@ public class CustomActivity extends AppCompatActivity {
             new Categories(3, "Home", "ic_03"), new Categories(4, "Market", "ic_04"), new Categories(5, "Restaurant", "ic_06"),
             new Categories(6, "Travel", "ic_08"), new Categories(7, "Others", "ic_05"),
     };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         overridePendingTransition(R.transition.slide_in, R.transition.slide_out);
         mSqLite = new DataSQLLite(this);
         if (mSqLite.getDataCategory().size() < 1) {
-            for (int i = 0; i <mCategories.length; i++) {
+            for (int i = 0; i < mCategories.length; i++) {
                 mSqLite.pushCategories(mCategories[i]);
             }
         }
@@ -39,8 +40,7 @@ public class CustomActivity extends AppCompatActivity {
         return super.onCreateView(parent, name, context, attrs);
     }
 
-    public DataSQLLite getmSqLite()
-    {
+    public DataSQLLite getmSqLite() {
         return mSqLite;
     }
 
@@ -48,15 +48,14 @@ public class CustomActivity extends AppCompatActivity {
         return mCategories;
     }
 
-    public String getIconName(Item item)
-    {
-        for(int i=0; i<mCategories.length; i++)
-        {
-            if(item.getmCategoriesID()==mCategories[i].getId())
+    public String getIconName(Item item) {
+        for (int i = 0; i < mCategories.length; i++) {
+            if (item.getmCategoriesID() == mCategories[i].getId())
                 return mCategories[i].getIconName();
         }
         return null;
     }
+
     @Override
     protected void onResume() {
         super.onResume();

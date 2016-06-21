@@ -60,7 +60,7 @@ public class ListViewDetailAdapter extends BaseAdapterEx {
                 viewHolderItem.textViewValue.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
             }
             viewHolderItem.textViewUnit.setText("VNĐ");
-            viewHolderItem.textViewValue.setText(FormatString.format(item.getmValue()+"")+",000");
+            viewHolderItem.textViewValue.setText(FormatString.format(item.getmValue() + "") + ",000");
         }
 
         return row;

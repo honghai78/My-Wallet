@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_weight="4"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal">
+
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_weight="1"
         android:id="@+id/item_im_ca"
-        android:layout_gravity="center_vertical"/>
-    <TextView
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_weight="1.5"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
+    <TextView
         android:id="@+id/item_te_ca"
-        android:layout_gravity="center_vertical"
-        android:textStyle="bold"/>
-    <TextView
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_weight="3.5"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/item_value_ca"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1.5"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_value_ca"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="3.5"
         android:gravity="end"
-        android:textStyle="bold"
+        android:text="Text"
         android:textSize="15dp"
-        android:text="Text"/>
+        android:textStyle="bold" />
 </LinearLayout>

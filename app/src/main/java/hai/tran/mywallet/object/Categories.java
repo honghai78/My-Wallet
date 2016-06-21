@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by hai.tran on 6/17/2016.
  */
-public class Categories implements Serializable{
+public class Categories implements Serializable {
     /*ID: Category ID.
     Name: Category name.
     IconName: Category icon name.*/
@@ -17,6 +17,7 @@ public class Categories implements Serializable{
         this.mName = name;
         this.mIconName = iconName;
     }
+
     public String getIconName() {
         return mIconName;
     }

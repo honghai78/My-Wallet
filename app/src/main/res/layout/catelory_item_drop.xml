@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_weight="4"
-    android:background="@drawable/list_items_bg">
+    android:background="@drawable/list_items_bg"
+    android:orientation="horizontal">
+
     <ImageView
+        android:id="@+id/item_im"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_weight="1"
-        android:id="@+id/item_im"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
     <ImageView
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.5" />
+
     <TextView
+        android:id="@+id/item_te"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_weight="2.5"
-        android:id="@+id/item_te"
         android:layout_gravity="center_vertical"
-        android:textColor="@android:color/black"/>
+        android:layout_weight="2.5"
+        android:textColor="@android:color/black" />
 </LinearLayout>

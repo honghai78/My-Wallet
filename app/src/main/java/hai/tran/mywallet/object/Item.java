@@ -15,7 +15,8 @@ public class Item implements Serializable {
     private String mDate;
     private long mValue;
     private int mCategoriesID;
-    public static int INCOME =0, EXPENSE =1;
+    public static int INCOME = 0, EXPENSE = 1;
+
     public Item(int ID, ItemType type, String note, String date, long value, int categoriesID) {
         this.mID = ID;
         this.mType = type;

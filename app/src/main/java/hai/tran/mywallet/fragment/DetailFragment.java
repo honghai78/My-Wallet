@@ -23,8 +23,9 @@ import hai.tran.mywallet.data.DataSQLLite;
  */
 public class DetailFragment extends CustomFragment {
 
-    String mMonth="";
+    String mMonth = "";
     private ListView mListView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class DetailFragment extends CustomFragment {
         mListView = (ListView) view.findViewById(R.id.listView_detail);
         Calendar calendar = Calendar.getInstance();
         DataSQLLite dataSQLLite = new DataSQLLite(getContext());
-        int month = calendar.get(Calendar.MONTH)+1;
-        String date = calendar.get(Calendar.YEAR)+"-"+month+"-"+calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String date = calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE);
         List list = dataSQLLite.getObjectWithMonth(date);
         ListViewDetailAdapter listViewDetailAdapter = new ListViewDetailAdapter(getActivity(), list);
         mListView.setAdapter(listViewDetailAdapter);
@@ -43,12 +44,12 @@ public class DetailFragment extends CustomFragment {
 
     @Override
     public void configToolbar() {
-        setTitle("Detail for "+mMonth);
+        setTitle("Detail for " + mMonth);
         mBtAdd.setVisibility(View.INVISIBLE);
     }
-    public void setMonth(String month)
-    {
-        mMonth=month;
+
+    public void setMonth(String month) {
+        mMonth = month;
     }
 
 }
