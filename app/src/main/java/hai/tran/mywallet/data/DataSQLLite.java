@@ -115,6 +115,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
                 ItemType itemType = ItemType.INCOME;
                 if (type == ItemType.EXPENSE.getValue())
                     itemType = ItemType.EXPENSE;
+                if(c.getString(3).equals(date))
                 list.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), c.getInt(5)));
                 c.moveToNext();
             }
@@ -124,12 +125,13 @@ public class DataSQLLite extends SQLiteOpenHelper {
         } finally {
             c.close();
         }
-        ArrayList<Item> stringDataSearch = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getmDate().equalsIgnoreCase(date))
-                stringDataSearch.add(list.get(i));
-        }
-        return stringDataSearch;
+//        ArrayList<Item> stringDataSearch = new ArrayList<>();
+//        for (int i = 0; i < list.size(); i++) {
+//            if (list.get(i).getmDate().equalsIgnoreCase(date))
+//                stringDataSearch.add(list.get(i));
+//        }
+//        return stringDataSearch;
+        return list;
     }
 
     public int deleteItem(int id) {
