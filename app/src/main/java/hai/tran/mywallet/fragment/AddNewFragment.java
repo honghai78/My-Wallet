@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,13 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.List;
 
+
+
+//import butterknife.BindView;
+//import butterknife.BindViews;
+import butterknife.Bind;
+//import butterknife.BindView;
+import butterknife.ButterKnife;
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.adapter.CategoryAdapter;
 import hai.tran.mywallet.data.DataSQLLite;
@@ -32,6 +40,7 @@ import hai.tran.mywallet.object.Categories;
 import hai.tran.mywallet.object.FormatString;
 import hai.tran.mywallet.object.Item;
 import hai.tran.mywallet.object.ItemType;
+import hai.tran.mywallet.object.OnSwipeTouchListener;
 
 /**
  * Created by hongh on 6/17/2016.
@@ -39,9 +48,12 @@ import hai.tran.mywallet.object.ItemType;
 public class AddNewFragment extends CustomFragment implements View.OnClickListener {
 
     private LinearLayout mLinearLayoutRight, mLinearLayoutLeft;
+    @Bind(R.id.void_view)  View mVoidView;
     private TextView mBtIn, mBtEx;
     private ImageView imageViewPick, mImageViewSpin;
-    private EditText editTextDate, editTextNote;
+
+    @Bind(R.id.add_ed2) EditText editTextDate;
+    @Bind(R.id.add_ed1) EditText editTextNote;
     private Spinner mSpinner;
     private ItemType mItemType = ItemType.INCOME;
     private TextView mValue, mSub, mB1, mB2, mB3, mB4, mB5, mB6, mB7, mB8, mB9, mB10, mB0, mBOK;
@@ -54,6 +66,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_new_fragment, container, false);
+        ButterKnife.bind(this, view);
         mView = container.getRootView();
         return view;
     }
@@ -98,7 +111,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         mB0.setOnClickListener(this);
         mBSp.setOnClickListener(this);
         mBOK.setOnClickListener(this);
-        editTextNote = (EditText) view.findViewById(R.id.add_ed1);
+     //   editTextNote = (EditText) view.findViewById(R.id.add_ed1);
         mLinearLayoutLeft = (LinearLayout) view.findViewById(R.id.lin_bt_in1);
         mLinearLayoutRight = (LinearLayout) view.findViewById(R.id.lin_bt_ex1);
         mValue = (TextView) view.findViewById(R.id.add_value);
@@ -120,6 +133,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
 
             }
         });
+
         mLinearLayoutRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,9 +149,68 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
 
             }
         });
+//
+//        mLinearLayoutAll = (LinearLayout) view.findViewById(R.id.line_add_bt1);
+//        mLinearLayoutAll.setOnTouchListener(new OnSwipeTouchListener(getActivity())
+//        {
+//            public void onSwipeTop() {
+//
+//            }
+//
+//            public void onSwipeRight() {
+//                Toast.makeText(getContext(), "OK", Toast.LENGTH_LONG).show();
+//                mLinearLayoutRight.performClick();
+//
+//            }
+//
+//            public void onSwipeLeft() {
+//                Toast.makeText(getContext(), "OK", Toast.LENGTH_LONG).show();
+//                mLinearLayoutLeft.performClick();
+//            }
+//
+//            public void onSwipeBottom() {
+//
+//            }
+//
+//            public void onClick() {
+//
+//            }
+//
+//        });
 
+
+        mVoidView.setOnTouchListener(new OnSwipeTouchListener(getActivity())
+        {
+            public void onSwipeTop() {
+
+            }
+
+            public void onSwipeRight() {
+                if(mItemType == ItemType.INCOME)
+                mLinearLayoutRight.performClick();
+
+            }
+
+            public void onSwipeLeft() {
+                if(mItemType == ItemType.EXPENSE)
+                mLinearLayoutLeft.performClick();
+            }
+
+            public void onSwipeBottom() {
+
+            }
+
+            public void onClick() {
+                if(mItemType == ItemType.EXPENSE)
+                    mLinearLayoutLeft.performClick();
+                else
+                    mLinearLayoutRight.performClick();
+
+            }
+
+        });
         imageViewPick = (ImageView) view.findViewById(R.id.add_pic);
-        editTextDate = (EditText) view.findViewById(R.id.add_ed2);
+       // editTextDate = (EditText) view.findViewById(R.id.add_ed2);
         final Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
         editTextDate.setText(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));
