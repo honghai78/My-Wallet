@@ -15,10 +15,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.adapter.ListViewDetailAdapter;
 import hai.tran.mywallet.adapter.MonthsAdapter;
@@ -33,12 +36,12 @@ public class DetailFragment extends CustomFragment {
     private String mDate ="";
     private ListView mListView;
     private Spinner spinner;
-
+    @Bind(R.id.nodatamonth) TextView textViewNoData;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_fragment, container, false);
-
+        ButterKnife.bind(this, view);
         final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Detail);
 
         // clone the inflater using the ContextThemeWrapper
@@ -52,7 +55,11 @@ public class DetailFragment extends CustomFragment {
         List list = dataSQLLite.getObjectWithMonth(mDate);
         final ListViewDetailAdapter listViewDetailAdapter = new ListViewDetailAdapter(getActivity(), list);
         mListView.setAdapter(listViewDetailAdapter);
-
+        if(list.size()>0)
+        {
+            setmListViewShow(true);
+        }
+        else setmListViewShow(false);
         spinner = (Spinner) view.findViewById(R.id.spinner);
         final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         final String[] monthsIcon= {"jan", "feb", "mac", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
@@ -64,9 +71,15 @@ public class DetailFragment extends CustomFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int month = spinner.getSelectedItemPosition()+1;
+                setTitle("Detail for "+months[month-1]);
                 String date = calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE);
                 List list = dataSQLLite.getObjectWithMonth(date);
                 listViewDetailAdapter.appendList(list);
+                if(list.size()>0)
+                {
+                    setmListViewShow(true);
+                }
+                else setmListViewShow(false);
             }
 
             @Override
@@ -96,5 +109,17 @@ public class DetailFragment extends CustomFragment {
         mMonth = month;
     }
     public void setDate(String date){mDate=date;}
-
+    private void setmListViewShow(boolean b)
+    {
+        if(b)
+        {
+            mListView.setVisibility(View.VISIBLE);
+            textViewNoData.setVisibility(View.GONE);
+        }
+        else
+        {
+            mListView.setVisibility(View.GONE);
+            textViewNoData.setVisibility(View.VISIBLE);
+        }
+    }
 }
