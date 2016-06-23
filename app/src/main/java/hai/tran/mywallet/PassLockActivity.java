@@ -13,6 +13,7 @@ import hai.tran.mywallet.activity.CustomActivity;
 import hai.tran.mywallet.activity.MainActivity;
 import hai.tran.mywallet.adapter.CustomAdapter;
 import hai.tran.mywallet.data.DataSharedPreferences;
+import hai.tran.mywallet.object.Categories;
 
 /**
  * Created by hai.tran on 6/16/2016.

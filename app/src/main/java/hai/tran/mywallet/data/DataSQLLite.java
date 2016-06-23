@@ -193,10 +193,8 @@ public class DataSQLLite extends SQLiteOpenHelper {
         List<Item> tem = null;
         List list = new ArrayList();
         List<Categories> categoriList = getDataCategory();
-        List itemList = getDataItem();
-
         for (int i = 0; i < categoriList.size(); i++) {
-            tem = getItemWithCategories(categoriList.get(i).getId());
+            tem = getItemWithCategories(categoriList.get(i).getId(), date);
             if (tem.size() > 0) {
                 Categories categories = categoriList.get(i);
                 list.add(new CategoriesValue(categories.getId(), categories.getName(), categories.getIconName(), getValue(tem), ITEM_TYPE));
@@ -218,13 +216,16 @@ public class DataSQLLite extends SQLiteOpenHelper {
             }
 
         }
-        if (ex > 0)
-            ITEM_TYPE = ItemType.EXPENSE;
-        else ITEM_TYPE = ItemType.INCOME;
+        if((in-ex)>0) ITEM_TYPE=ItemType.INCOME;
+        else ITEM_TYPE =ItemType.EXPENSE;
         return in - ex;
     }
 
-    public List getItemWithCategories(int idCategories) {
+    public List getItemWithCategories(int idCategories, String date) {
+        String month, year;
+        int temp = 1 + Integer.parseInt(date.trim().split("-")[1]);
+        month = temp + "";
+        year = getYear(date);
         ArrayList<Item> stringDataSearch = new ArrayList<>();
         Cursor c = getReadableDatabase().query(DataTable.TABLE_ITEM_NAME, null, null, null, null, null, null);
         c.moveToFirst();
@@ -236,6 +237,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
                     itemType = ItemType.EXPENSE;
                 int idC = c.getInt(5);
                 if (idC == idCategories)
+//                    if(getMonth(c.getString(3)).equals(month)&&getYear(c.getString(3)).equals(year))
                     stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
                 c.moveToNext();
             }

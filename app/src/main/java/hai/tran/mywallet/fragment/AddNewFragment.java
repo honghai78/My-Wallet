@@ -56,7 +56,19 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     @Bind(R.id.add_ed1) EditText editTextNote;
     private Spinner mSpinner;
     private ItemType mItemType = ItemType.INCOME;
-    private TextView mValue, mSub, mB1, mB2, mB3, mB4, mB5, mB6, mB7, mB8, mB9, mB10, mB0, mBOK;
+    private TextView mValue, mSub;
+    @Bind(R.id.kb1) TextView mB1;
+    @Bind(R.id.kb2) TextView mB2;
+    @Bind(R.id.kb3) TextView mB3;
+    @Bind(R.id.kb4) TextView mB4;
+    @Bind(R.id.kb5) TextView mB5;
+    @Bind(R.id.kb6) TextView mB6;
+    @Bind(R.id.kb7) TextView mB7;
+    @Bind(R.id.kb8) TextView mB8;
+    @Bind(R.id.kb9) TextView mB9;
+    @Bind(R.id.kb10) TextView mB10;
+    @Bind(R.id.kbok) TextView mBOK;
+    @Bind(R.id.kb0) TextView mB0;
     private LinearLayout mBSp;
     int mCount = 0;
     private boolean UPDATE = false;
@@ -86,17 +98,6 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mB1 = (TextView) view.findViewById(R.id.kb1);
-        mB2 = (TextView) view.findViewById(R.id.kb2);
-        mB3 = (TextView) view.findViewById(R.id.kb3);
-        mB4 = (TextView) view.findViewById(R.id.kb4);
-        mB5 = (TextView) view.findViewById(R.id.kb5);
-        mB6 = (TextView) view.findViewById(R.id.kb6);
-        mB7 = (TextView) view.findViewById(R.id.kb7);
-        mB8 = (TextView) view.findViewById(R.id.kb8);
-        mB9 = (TextView) view.findViewById(R.id.kb9);
-        mB10 = (TextView) view.findViewById(R.id.kb10);
-        mB0 = (TextView) view.findViewById(R.id.kb0);
         mBSp = (LinearLayout) view.findViewById(R.id.lin_bt_sp);
         mBOK = (TextView) view.findViewById(R.id.kbok);
         mB1.setOnClickListener(this);
