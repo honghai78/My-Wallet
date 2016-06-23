@@ -44,7 +44,7 @@ public class DateFragment extends CustomFragment {
     private ImageView mImageView;
     private Handler mTimerHandler = null;
     private static int VISIBILITY_TIMEOUT = 2000;
-
+    private String mDateSelect="";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,10 +83,10 @@ public class DateFragment extends CustomFragment {
         mCalendarView.setOnDateLongClickListener(new CalendarView.OnDateLongClickListener() {
             @Override
             public void onDateLongClick(@NonNull Date selectedDate) {
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String date = df.format(selectedDate);
-                Toast.makeText(getActivity(), date + "", Toast.LENGTH_LONG).show();
-                //  textView.setText(df.format(selectedDate));
+//                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//                String date = df.format(selectedDate);
+//                Toast.makeText(getActivity(), date + "", Toast.LENGTH_LONG).show();
+//                //  textView.setText(df.format(selectedDate));
             }
         });
         mDataSQLLite = new DataSQLLite(getActivity());
@@ -96,6 +96,7 @@ public class DateFragment extends CustomFragment {
                 int year = selectedDate.getYear() + 1900;
                 int month = selectedDate.getMonth() + 1;
                 String date = year + "-" + month + "-" + selectedDate.getDate();
+                mDateSelect = date;
                 mList = mDataSQLLite.getDataItem(date);
                 if (mList.size() > 0) {
                     setListViewShow(true);
@@ -115,6 +116,7 @@ public class DateFragment extends CustomFragment {
                 int year = monthDate.getYear() + 1900;
                 int month = monthDate.getMonth() + 1;
                 String date = year + "-" + month + "-" + monthDate.getDate();
+                mDateSelect = date;
                 mList = mDataSQLLite.getDataItem(date);
                 if (mList.size() > 0) {
                     setListViewShow(true);
@@ -179,7 +181,7 @@ public class DateFragment extends CustomFragment {
             @Override
             public void onClick(View v) {
                 CustomDialog customDialog = new CustomDialog(getActivity(),
-                        calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE));
+                      mDateSelect);
                 customDialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
                 customDialog.show();
             }
@@ -204,7 +206,7 @@ public class DateFragment extends CustomFragment {
             mListView.setAdapter(mListViewAdapter);
 
         } else setListViewShow(false);
-
+        mDateSelect = calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE);
     }
 
     @Override

@@ -21,6 +21,7 @@ import java.util.List;
 
 import hai.tran.mywallet.R;
 import hai.tran.mywallet.adapter.ListViewDetailAdapter;
+import hai.tran.mywallet.adapter.MonthsAdapter;
 import hai.tran.mywallet.data.DataSQLLite;
 
 /**
@@ -28,7 +29,8 @@ import hai.tran.mywallet.data.DataSQLLite;
  */
 public class DetailFragment extends CustomFragment {
 
-    String mMonth = "";
+    private String mMonth = "";
+    private String mDate ="";
     private ListView mListView;
     private Spinner spinner;
 
@@ -45,16 +47,18 @@ public class DetailFragment extends CustomFragment {
         mListView = (ListView) view.findViewById(R.id.listView_detail);
         final Calendar calendar = Calendar.getInstance();
        final DataSQLLite dataSQLLite = new DataSQLLite(getContext());
-        int month = calendar.get(Calendar.MONTH) + 1;
-        String date = calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE);
-        List list = dataSQLLite.getObjectWithMonth(date);
+       // int month = calendar.get(Calendar.MONTH) + 1;
+        //String date = calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE);
+        List list = dataSQLLite.getObjectWithMonth(mDate);
         final ListViewDetailAdapter listViewDetailAdapter = new ListViewDetailAdapter(getActivity(), list);
         mListView.setAdapter(listViewDetailAdapter);
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
         final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, months);
-        spinner.setAdapter(adapter);
+        final String[] monthsIcon= {"jan", "feb", "mac", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
+        MonthsAdapter monthsAdapter = new MonthsAdapter(getContext(), monthsIcon);
+      //  ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, months);
+        spinner.setAdapter(monthsAdapter);
         spinner.setSelection(getMonth(months, mMonth));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,5 +95,6 @@ public class DetailFragment extends CustomFragment {
     public void setMonth(String month) {
         mMonth = month;
     }
+    public void setDate(String date){mDate=date;}
 
 }

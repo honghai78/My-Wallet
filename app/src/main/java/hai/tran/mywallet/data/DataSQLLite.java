@@ -167,7 +167,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
     public DataMonth getDataValueMonth(String date) {
         long tt = 0, in = 0, ex = 0;
         String month, year;
-        int temp = 1 + Integer.parseInt(date.trim().split("-")[1]);
+        int temp = Integer.parseInt(date.trim().split("-")[1]);
         month = temp + "";
         year = getYear(date);
         List<Item> itemList = getDataItem();
@@ -223,7 +223,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
 
     public List getItemWithCategories(int idCategories, String date) {
         String month, year;
-        int temp = 1 + Integer.parseInt(date.trim().split("-")[1]);
+        int temp = Integer.parseInt(date.trim().split("-")[1]);
         month = temp + "";
         year = getYear(date);
         ArrayList<Item> stringDataSearch = new ArrayList<>();
@@ -237,7 +237,7 @@ public class DataSQLLite extends SQLiteOpenHelper {
                     itemType = ItemType.EXPENSE;
                 int idC = c.getInt(5);
                 if (idC == idCategories)
-//                    if(getMonth(c.getString(3)).equals(month)&&getYear(c.getString(3)).equals(year))
+                    if(getMonth(c.getString(3)).equals(month)&&getYear(c.getString(3)).equals(year))
                     stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
                 c.moveToNext();
             }
