@@ -13,5 +13,6 @@
         android:background="@drawable/bg_number"
         android:clickable="true"
         android:gravity="center"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/text_size" />
 </LinearLayout>

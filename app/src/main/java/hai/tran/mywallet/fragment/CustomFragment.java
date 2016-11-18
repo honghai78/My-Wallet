@@ -3,6 +3,8 @@ package hai.tran.mywallet.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -101,7 +103,16 @@ public abstract class CustomFragment extends Fragment {
      * Displays the app's license in an AlertDialog.
      */
     private void displayAppLicense() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        assert pInfo != null;
+        String version = pInfo.versionName;
         new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.app_name) + " --- version " + version)
                 .setMessage(R.string.app_license)
                 .setNeutralButton(R.string.i_agree, null)
                 .setCancelable(false)    // do not allow the user to click outside the dialog or press the back button

@@ -64,6 +64,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="INCOME"
+                    android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -86,6 +87,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:id="@+id/void_view"
             android:layout_width="match_parent"
@@ -296,6 +298,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="1"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -308,6 +311,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="2"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -320,6 +324,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="3"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -340,6 +345,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="4"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -352,6 +358,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="5"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -364,6 +371,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="6"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -383,6 +391,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="7"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -395,6 +404,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="8"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -407,6 +417,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="9"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -426,6 +437,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text=","
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -438,6 +450,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="0"
+                        android:textColor="@android:color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -485,6 +498,7 @@
                         android:background="@drawable/bg_kb"
                         android:gravity="center|center_horizontal"
                         android:text="OK"
+                        android:textColor="@android:color/white"
                         android:textSize="30dp"
                         android:textStyle="bold" />
                 </LinearLayout>
