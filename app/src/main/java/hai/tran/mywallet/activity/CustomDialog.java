@@ -73,7 +73,7 @@ public class CustomDialog extends Dialog {
         String month = "wrong";
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         if (num >= 0 && num <= 11) {
-            month = months[num-1];
+            month = months[num - 1];
         }
         return month;
     }

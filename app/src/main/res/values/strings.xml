@@ -7,4 +7,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="no_data">No data</string>
     <string name="main_tile">Wallet Manager</string>
+    <string name="app_license">Copyright &#169; 2016  Shine Tran\n
+
+				\nThis program is free software: you can redistribute it and/or modify
+				it under the terms of the GNU General Public License as published by
+				the Free Software Foundation (version 3 of the License).\nSee the
+				GNU General Public License for more details.\n
+
+				\nYou should have received a copy of the GNU General Public License
+				along with this program.\nIf not, see: \n&lt;http://www.gnu.org/licenses&gt;</string>
+    <string name="i_agree">I Agree</string>
 </resources>

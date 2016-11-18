@@ -1,13 +1,10 @@
 package hai.tran.mywallet.fragment;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
-
 
 
 //import butterknife.BindView;
@@ -48,27 +44,42 @@ import hai.tran.mywallet.object.OnSwipeTouchListener;
 public class AddNewFragment extends CustomFragment implements View.OnClickListener {
 
     private LinearLayout mLinearLayoutRight, mLinearLayoutLeft;
-    @Bind(R.id.void_view)  View mVoidView;
+    @Bind(R.id.void_view)
+    View mVoidView;
     private TextView mBtIn, mBtEx;
     private ImageView imageViewPick, mImageViewSpin;
 
-    @Bind(R.id.add_ed2) EditText editTextDate;
-    @Bind(R.id.add_ed1) EditText editTextNote;
+    @Bind(R.id.add_ed2)
+    EditText editTextDate;
+    @Bind(R.id.add_ed1)
+    EditText editTextNote;
     private Spinner mSpinner;
     private ItemType mItemType = ItemType.INCOME;
     private TextView mValue, mSub;
-    @Bind(R.id.kb1) TextView mB1;
-    @Bind(R.id.kb2) TextView mB2;
-    @Bind(R.id.kb3) TextView mB3;
-    @Bind(R.id.kb4) TextView mB4;
-    @Bind(R.id.kb5) TextView mB5;
-    @Bind(R.id.kb6) TextView mB6;
-    @Bind(R.id.kb7) TextView mB7;
-    @Bind(R.id.kb8) TextView mB8;
-    @Bind(R.id.kb9) TextView mB9;
-    @Bind(R.id.kb10) TextView mB10;
-    @Bind(R.id.kbok) TextView mBOK;
-    @Bind(R.id.kb0) TextView mB0;
+    @Bind(R.id.kb1)
+    TextView mB1;
+    @Bind(R.id.kb2)
+    TextView mB2;
+    @Bind(R.id.kb3)
+    TextView mB3;
+    @Bind(R.id.kb4)
+    TextView mB4;
+    @Bind(R.id.kb5)
+    TextView mB5;
+    @Bind(R.id.kb6)
+    TextView mB6;
+    @Bind(R.id.kb7)
+    TextView mB7;
+    @Bind(R.id.kb8)
+    TextView mB8;
+    @Bind(R.id.kb9)
+    TextView mB9;
+    @Bind(R.id.kb10)
+    TextView mB10;
+    @Bind(R.id.kbok)
+    TextView mBOK;
+    @Bind(R.id.kb0)
+    TextView mB0;
     private LinearLayout mBSp;
     int mCount = 0;
     private boolean UPDATE = false;
@@ -91,7 +102,6 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
     @Override
     public void configToolbar() {
         setTitle("Add New");
-        mBtAdd.setVisibility(View.INVISIBLE);
         if (UPDATE) setTitle("Edit");
     }
 
@@ -112,7 +122,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
         mB0.setOnClickListener(this);
         mBSp.setOnClickListener(this);
         mBOK.setOnClickListener(this);
-     //   editTextNote = (EditText) view.findViewById(R.id.add_ed1);
+        //   editTextNote = (EditText) view.findViewById(R.id.add_ed1);
         mLinearLayoutLeft = (LinearLayout) view.findViewById(R.id.lin_bt_in1);
         mLinearLayoutRight = (LinearLayout) view.findViewById(R.id.lin_bt_ex1);
         mValue = (TextView) view.findViewById(R.id.add_value);
@@ -150,51 +160,21 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
 
             }
         });
-//
-//        mLinearLayoutAll = (LinearLayout) view.findViewById(R.id.line_add_bt1);
-//        mLinearLayoutAll.setOnTouchListener(new OnSwipeTouchListener(getActivity())
-//        {
-//            public void onSwipeTop() {
-//
-//            }
-//
-//            public void onSwipeRight() {
-//                Toast.makeText(getContext(), "OK", Toast.LENGTH_LONG).show();
-//                mLinearLayoutRight.performClick();
-//
-//            }
-//
-//            public void onSwipeLeft() {
-//                Toast.makeText(getContext(), "OK", Toast.LENGTH_LONG).show();
-//                mLinearLayoutLeft.performClick();
-//            }
-//
-//            public void onSwipeBottom() {
-//
-//            }
-//
-//            public void onClick() {
-//
-//            }
-//
-//        });
 
-
-        mVoidView.setOnTouchListener(new OnSwipeTouchListener(getActivity())
-        {
+        mVoidView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeTop() {
 
             }
 
             public void onSwipeRight() {
-                if(mItemType == ItemType.INCOME)
-                mLinearLayoutRight.performClick();
+                if (mItemType == ItemType.INCOME)
+                    mLinearLayoutRight.performClick();
 
             }
 
             public void onSwipeLeft() {
-                if(mItemType == ItemType.EXPENSE)
-                mLinearLayoutLeft.performClick();
+                if (mItemType == ItemType.EXPENSE)
+                    mLinearLayoutLeft.performClick();
             }
 
             public void onSwipeBottom() {
@@ -202,7 +182,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
             }
 
             public void onClick() {
-                if(mItemType == ItemType.EXPENSE)
+                if (mItemType == ItemType.EXPENSE)
                     mLinearLayoutLeft.performClick();
                 else
                     mLinearLayoutRight.performClick();
@@ -211,7 +191,7 @@ public class AddNewFragment extends CustomFragment implements View.OnClickListen
 
         });
         imageViewPick = (ImageView) view.findViewById(R.id.add_pic);
-       // editTextDate = (EditText) view.findViewById(R.id.add_ed2);
+        // editTextDate = (EditText) view.findViewById(R.id.add_ed2);
         final Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
         editTextDate.setText(calendar.get(Calendar.YEAR) + "-" + month + "-" + calendar.get(Calendar.DATE));

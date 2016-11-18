@@ -20,6 +20,5 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="end|center_vertical"
-        android:padding="5dp"
-        android:visibility="gone" />
+        android:padding="5dp" />
 </FrameLayout>

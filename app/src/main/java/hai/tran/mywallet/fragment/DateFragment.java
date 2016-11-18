@@ -1,5 +1,6 @@
 package hai.tran.mywallet.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,18 +16,19 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.samsistemas.calendarview.widget.CalendarView;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import hai.tran.mywallet.activity.CustomDialog;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hai.tran.mywallet.R;
+import hai.tran.mywallet.activity.CustomDialog;
 import hai.tran.mywallet.adapter.ListViewAdapter;
 import hai.tran.mywallet.adapter.ListViewHolder;
 import hai.tran.mywallet.data.DataSQLLite;
@@ -34,39 +36,34 @@ import hai.tran.mywallet.data.DataSharedPreferences;
 import hai.tran.mywallet.object.Item;
 
 public class DateFragment extends CustomFragment {
+    @Bind(R.id.listView_main)
+    ListView mListView;
+    @Bind(R.id.nodata)
+    TextView mEditText;
+    @Bind(R.id.btnew)
+    ImageView mImageView;
+    @Bind(R.id.calendar)
     CalendarView mCalendarView;
-    private ListView mListView;
-    private TextView mEditText;
     private List<Item> mList = null;
     private ListViewAdapter mListViewAdapter;
     DataSQLLite mDataSQLLite;
     View mRowView = null;
-    private ImageView mImageView;
     private Handler mTimerHandler = null;
     private static int VISIBILITY_TIMEOUT = 2000;
-    private String mDateSelect="";
+    private String mDateSelect = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.date_fragment, container, false);
         mView = container.getRootView();
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void configToolbar() {
         setTitle(getString(R.string.main_tile));
-        setmBtAddImage(R.drawable.ic_add);
-        mBtAdd.setVisibility(View.VISIBLE);
-        mBtAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment frag = new AddNewFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.transition.slide_in, R.transition.slide_out);
-                fragmentTransaction.replace(R.id.fragment_main, frag).commit();
-            }
-        });
         mSqLite = new DataSQLLite(getActivity());
     }
 
@@ -128,9 +125,6 @@ public class DateFragment extends CustomFragment {
         });
 
         final Calendar calendar = Calendar.getInstance();
-
-        mListView = (ListView) view.findViewById(R.id.listView_main);
-        mEditText = (TextView) view.findViewById(R.id.nodata);
         mList = mDataSQLLite.getDataItem(calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE));
         mListViewAdapter = new ListViewAdapter(getActivity(), getmCategories(), mList);
         mListView.setAdapter(mListViewAdapter);
@@ -138,7 +132,7 @@ public class DateFragment extends CustomFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, long id) {
                 //======================================================================
-                ListViewHolder.getViewHolder(view).linearLayoutTotal.animate().translationX(0 - ListViewHolder.getViewHolder(view).mLinearLayoutItem.getWidth() );
+                ListViewHolder.getViewHolder(view).linearLayoutTotal.animate().translationX(0 - ListViewHolder.getViewHolder(view).mLinearLayoutItem.getWidth());
                 ListViewHolder.getViewHolder(view).mLinearLayoutItem.animate().translationX(view.getWidth() - ListViewHolder.getViewHolder(view).linearLayoutTotal.getWidth());
 
                 //======================================================
@@ -150,7 +144,7 @@ public class DateFragment extends CustomFragment {
                     public void run() {
                         if (mRowView != null) {
                             ListViewHolder.getViewHolder(mRowView).linearLayoutTotal.animate().translationX(0);
-                            ListViewHolder.getViewHolder(mRowView).mLinearLayoutItem.animate().translationX(view.getWidth() +  ListViewHolder.getViewHolder(mRowView).mLinearLayoutItem.getWidth());
+                            ListViewHolder.getViewHolder(mRowView).mLinearLayoutItem.animate().translationX(view.getWidth() + ListViewHolder.getViewHolder(mRowView).mLinearLayoutItem.getWidth());
                         }
                         mRowView = null;
                         mTimerHandler = null;
@@ -176,12 +170,11 @@ public class DateFragment extends CustomFragment {
             }
         });
 
-        mImageView = (ImageView) view.findViewById(R.id.btnew);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CustomDialog customDialog = new CustomDialog(getActivity(),
-                      mDateSelect);
+                        mDateSelect);
                 customDialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialog;
                 customDialog.show();
             }
@@ -249,5 +242,19 @@ public class DateFragment extends CustomFragment {
             mEditText.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.fab)
+    public void onClick() {
+        Fragment frag = new AddNewFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.transition.slide_in, R.transition.slide_out);
+        fragmentTransaction.replace(R.id.fragment_main, frag).commit();
     }
 }

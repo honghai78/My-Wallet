@@ -1,17 +1,13 @@
 package hai.tran.mywallet.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +24,7 @@ import hai.tran.mywallet.object.Item;
 
 public abstract class CustomFragment extends Fragment {
 
-    protected ImageView mBtAdd;
+    protected ImageView mBtProfile;
     protected Context mContext;
     protected View mView;
     protected TextView mTitle;
@@ -44,8 +40,15 @@ public abstract class CustomFragment extends Fragment {
         setRetainInstance(true);
         mSqLite = new DataSQLLite(getActivity());
         mTitle = (TextView) mView.findViewById(R.id.toolbar_title);
-        mBtAdd = (ImageView) mView.findViewById(R.id.btAdd);
+        mBtProfile = (ImageView) mView.findViewById(R.id.btAdd);
         configToolbar();
+        setmBtAddImage(R.drawable.ic_person);
+        mBtProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayAppLicense();
+            }
+        });
     }
 
     protected void setTitle(String text) {
@@ -53,7 +56,7 @@ public abstract class CustomFragment extends Fragment {
     }
 
     protected void setmBtAddImage(int resource) {
-        mBtAdd.setImageResource(resource);
+        mBtProfile.setImageResource(resource);
     }
 
     public String getIconName(Item item) {
@@ -92,6 +95,17 @@ public abstract class CustomFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    /**
+     * Displays the app's license in an AlertDialog.
+     */
+    private void displayAppLicense() {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.app_license)
+                .setNeutralButton(R.string.i_agree, null)
+                .setCancelable(false)    // do not allow the user to click outside the dialog or press the back button
+                .show();
     }
 }
 

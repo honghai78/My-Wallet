@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    android:keepScreenOn="true"
-    android:orientation="vertical"
-    android:weightSum="6">
+    android:keepScreenOn="true">
 
     <RelativeLayout
+        android:id="@+id/layout_head"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3.5">
+        android:layout_height="@dimen/_270sdp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <com.samsistemas.calendarview.widget.CalendarView
             android:id="@+id/calendar"
@@ -27,7 +28,8 @@
             android:background="@color/colorPrimary"
             app:calendarBackgroundColor="@color/colorPrimary"
             app:calendarTitleTextColor="@android:color/white"
-            app:currentDayOfMonthColor="@android:color/white"
+            app:weekendColor="@android:color/holo_red_light"
+            app:currentDayOfMonthColor="@android:color/holo_red_light"
             app:dayOfWeekTextColor="@android:color/white"
             app:disabledDayBackgroundColor="@color/colorPrimary"
             app:disabledDayTextColor="@android:color/darker_gray"
@@ -47,9 +49,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_head"
         android:layout_marginTop="10dp"
-        android:layout_weight="2.5"
         android:background="@android:color/white"
         android:paddingBottom="5dp">
 
@@ -80,4 +82,19 @@
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/colorAccent" />
+</RelativeLayout>

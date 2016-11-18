@@ -14,7 +14,7 @@ import hai.tran.mywallet.object.ItemType;
 /**
  * Created by hai.tran on 6/17/2016.
  */
-public class ListViewHolder implements View.OnLongClickListener {
+public class ListViewHolder {
     public ImageView mIcon, mBtDelete, mBtEdit;
     private TextView mNote, mDate, mValue, mSubValue, mUnit;
     private static final String TAG = ListViewHolder.class.getSimpleName();
@@ -26,7 +26,6 @@ public class ListViewHolder implements View.OnLongClickListener {
 
     protected ListViewHolder(View row) {
         try {
-
             mIcon = (ImageView) row.findViewById(R.id.item_icon);
             mNote = (TextView) row.findViewById(R.id.item_notice);
             mDate = (TextView) row.findViewById(R.id.item_date);
@@ -45,19 +44,6 @@ public class ListViewHolder implements View.OnLongClickListener {
         return new ListViewHolder(row);
     }
 
-    //    public  void showBtAction(boolean b)
-//    {
-//        try {
-//            if (b) {
-//                mBtDelete.setVisibility(View.VISIBLE);
-//                mBtEdit.setVisibility(View.VISIBLE);
-//            } else {
-//                mBtEdit.setVisibility(View.GONE);
-//                mBtDelete.setVisibility(View.GONE);
-//            }
-//        }
-//        catch (NullPointerException n){}
-//    }
     public boolean isShowBtAction() {
         if (mBtDelete.getVisibility() == View.VISIBLE)
             return true;
@@ -89,9 +75,4 @@ public class ListViewHolder implements View.OnLongClickListener {
         }
     }
 
-    @Override
-    public boolean onLongClick(View v) {
-        //  showBtAction(true);
-        return false;
-    }
 }

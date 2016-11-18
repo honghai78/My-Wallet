@@ -126,12 +126,6 @@ public class DataSQLLite extends SQLiteOpenHelper {
         } finally {
             c.close();
         }
-//        ArrayList<Item> stringDataSearch = new ArrayList<>();
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i).getmDate().equalsIgnoreCase(date))
-//                stringDataSearch.add(list.get(i));
-//        }
-//        return stringDataSearch;
         return list;
     }
 
@@ -216,8 +210,8 @@ public class DataSQLLite extends SQLiteOpenHelper {
             }
 
         }
-        if((in-ex)>0) ITEM_TYPE=ItemType.INCOME;
-        else ITEM_TYPE =ItemType.EXPENSE;
+        if ((in - ex) > 0) ITEM_TYPE = ItemType.INCOME;
+        else ITEM_TYPE = ItemType.EXPENSE;
         return in - ex;
     }
 
@@ -237,8 +231,8 @@ public class DataSQLLite extends SQLiteOpenHelper {
                     itemType = ItemType.EXPENSE;
                 int idC = c.getInt(5);
                 if (idC == idCategories)
-                    if(getMonth(c.getString(3)).equals(month)&&getYear(c.getString(3)).equals(year))
-                    stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
+                    if (getMonth(c.getString(3)).equals(month) && getYear(c.getString(3)).equals(year))
+                        stringDataSearch.add(new Item(c.getInt(0), itemType, c.getString(2), c.getString(3), c.getLong(4), idC));
                 c.moveToNext();
             }
         } catch (CursorIndexOutOfBoundsException cursorIndexOutOfBoundsException) {
